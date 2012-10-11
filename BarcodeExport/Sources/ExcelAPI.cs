@@ -132,8 +132,9 @@ namespace BarcodeExport.Sources
                                     //Agrega la imagen
                                     System.IO.MemoryStream stream = new System.IO.MemoryStream();
                                     barcodes[row - 1].barcodeImage.Save(stream, System.Drawing.Imaging.ImageFormat.Bmp);
-                                    var writableImage = new CSharpJExcel.Jxl.Write.WritableImage(0, 0, 1, 1, stream.ToArray());
+                                    var writableImage = new CSharpJExcel.Jxl.Write.WritableImage(0.01, 0, 0.99, 0.99, stream.ToArray());
                                     writableImage.setColumn(column);
+                                    writableImage.setX(writableImage.getX() + 0.01);
                                     writableImage.setRow(row);
 
                                     sheet.addImage(writableImage);

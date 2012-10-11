@@ -22,7 +22,7 @@ namespace BarcodeExport
             //Valores por defecto
             this.comboBox1.SelectedIndex = 0;
             this._tablePath = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase).Substring(6) + "\\Barcodes.xls";
-            this._fontFilename = "fontCode39.ttf";
+            this._fontFilename = "fontdata.dll";
             this._fontFamilyname = "Free 3 of 9";
             this._fontSize = 48;
             this._codesReaded = 0;
@@ -70,12 +70,15 @@ namespace BarcodeExport
             //si se presiono Enter
             if (e.KeyChar == '\r')
             {
+                //Lleva los caracters a mayusculas
+                this.textBox_capture.Text = this.textBox_capture.Text.ToUpper();
+
                 //Valida que sean todos digitos
                 foreach (char digit in this.textBox_capture.Text)
                 {
-                    if (!Char.IsLetterOrDigit(digit))
+                    if (!Char.IsLetterOrDigit(digit) && digit != '*')
                     {
-                        MessageBox.Show("La serie de digitos no es válida!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("La serie de caracteres no es válida!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return;
                     }
                 }
