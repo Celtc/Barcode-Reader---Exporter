@@ -20,6 +20,7 @@ namespace BarcodeExport
             this._barcodeList = new List<BarcodeStruct>();
 
             //Valores por defecto
+            this.checkBox_asterisk.Checked = true;
             this.comboBox1.SelectedIndex = 0;
             this._tablePath = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase).Substring(6) + "\\Barcodes.xls";
             this._fontFilename = "fontdata.dll";
@@ -82,6 +83,10 @@ namespace BarcodeExport
                         return;
                     }
                 }
+
+                //Agrega asteriscos si esta indicado
+                if (this.checkBox_asterisk.Checked)
+                    this.textBox_capture.Text = "*" + this.textBox_capture.Text + "*";
 
                 try
                 {

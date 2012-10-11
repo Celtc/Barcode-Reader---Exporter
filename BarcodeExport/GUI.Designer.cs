@@ -39,11 +39,12 @@
             this.label_qty = new System.Windows.Forms.Label();
             this.button_export = new System.Windows.Forms.Button();
             this.button_eraseReads = new System.Windows.Forms.Button();
+            this.checkBox_asterisk = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // textBox_capture
             // 
-            this.textBox_capture.Location = new System.Drawing.Point(10, 106);
+            this.textBox_capture.Location = new System.Drawing.Point(10, 105);
             this.textBox_capture.Name = "textBox_capture";
             this.textBox_capture.Size = new System.Drawing.Size(625, 20);
             this.textBox_capture.TabIndex = 1;
@@ -56,7 +57,7 @@
             this.comboBox1.FormattingEnabled = true;
             this.comboBox1.Items.AddRange(new object[] {
             "Code 3 of 9"});
-            this.comboBox1.Location = new System.Drawing.Point(99, 17);
+            this.comboBox1.Location = new System.Drawing.Point(99, 16);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(121, 21);
             this.comboBox1.TabIndex = 2;
@@ -64,7 +65,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 20);
+            this.label1.Location = new System.Drawing.Point(12, 19);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(81, 13);
             this.label1.TabIndex = 3;
@@ -73,7 +74,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(12, 50);
+            this.label2.Location = new System.Drawing.Point(12, 49);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(74, 13);
             this.label2.TabIndex = 4;
@@ -81,7 +82,7 @@
             // 
             // textBox_tablePath
             // 
-            this.textBox_tablePath.Location = new System.Drawing.Point(99, 47);
+            this.textBox_tablePath.Location = new System.Drawing.Point(99, 46);
             this.textBox_tablePath.Name = "textBox_tablePath";
             this.textBox_tablePath.Size = new System.Drawing.Size(536, 20);
             this.textBox_tablePath.TabIndex = 5;
@@ -89,7 +90,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(12, 90);
+            this.label3.Location = new System.Drawing.Point(12, 89);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(261, 13);
             this.label3.TabIndex = 6;
@@ -99,7 +100,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(12, 143);
+            this.label4.Location = new System.Drawing.Point(12, 142);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(101, 17);
             this.label4.TabIndex = 7;
@@ -110,7 +111,7 @@
             this.label_qty.AutoSize = true;
             this.label_qty.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label_qty.ForeColor = System.Drawing.Color.Red;
-            this.label_qty.Location = new System.Drawing.Point(111, 143);
+            this.label_qty.Location = new System.Drawing.Point(111, 142);
             this.label_qty.Name = "label_qty";
             this.label_qty.Size = new System.Drawing.Size(40, 17);
             this.label_qty.TabIndex = 8;
@@ -118,7 +119,7 @@
             // 
             // button_export
             // 
-            this.button_export.Location = new System.Drawing.Point(337, 171);
+            this.button_export.Location = new System.Drawing.Point(337, 170);
             this.button_export.Name = "button_export";
             this.button_export.Size = new System.Drawing.Size(92, 40);
             this.button_export.TabIndex = 9;
@@ -128,7 +129,7 @@
             // 
             // button_eraseReads
             // 
-            this.button_eraseReads.Location = new System.Drawing.Point(220, 171);
+            this.button_eraseReads.Location = new System.Drawing.Point(220, 170);
             this.button_eraseReads.Name = "button_eraseReads";
             this.button_eraseReads.Size = new System.Drawing.Size(92, 40);
             this.button_eraseReads.TabIndex = 10;
@@ -136,11 +137,23 @@
             this.button_eraseReads.UseVisualStyleBackColor = true;
             this.button_eraseReads.Click += new System.EventHandler(this.button_eraseReads_Click);
             // 
+            // checkBox_asterisk
+            // 
+            this.checkBox_asterisk.AutoSize = true;
+            this.checkBox_asterisk.Location = new System.Drawing.Point(439, 142);
+            this.checkBox_asterisk.Name = "checkBox_asterisk";
+            this.checkBox_asterisk.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.checkBox_asterisk.Size = new System.Drawing.Size(173, 17);
+            this.checkBox_asterisk.TabIndex = 12;
+            this.checkBox_asterisk.Text = "Agregar asteriscos al inicio y fin";
+            this.checkBox_asterisk.UseVisualStyleBackColor = true;
+            // 
             // GUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(647, 223);
+            this.ClientSize = new System.Drawing.Size(647, 224);
+            this.Controls.Add(this.checkBox_asterisk);
             this.Controls.Add(this.button_eraseReads);
             this.Controls.Add(this.button_export);
             this.Controls.Add(this.label_qty);
@@ -171,6 +184,7 @@
         private System.Windows.Forms.Label label_qty;
         private System.Windows.Forms.Button button_export;
         private System.Windows.Forms.Button button_eraseReads;
+        private System.Windows.Forms.CheckBox checkBox_asterisk;
     }
 }
 
