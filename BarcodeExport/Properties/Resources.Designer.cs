@@ -67,17 +67,31 @@ namespace BarcodeExport.Properties {
             }
         }
         
-        internal static byte[] CSharpJExcel {
-            get {
-                object obj = ResourceManager.GetObject("CSharpJExcel", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
         internal static System.Drawing.Bitmap LogoMed_Alpha {
             get {
                 object obj = ResourceManager.GetObject("LogoMed_Alpha", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static byte[] Microsoft_Office_Interop_Excel {
+            get {
+                object obj = ResourceManager.GetObject("Microsoft_Office_Interop_Excel", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        internal static byte[] Microsoft_Vbe_Interop {
+            get {
+                object obj = ResourceManager.GetObject("Microsoft_Vbe_Interop", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        internal static byte[] office {
+            get {
+                object obj = ResourceManager.GetObject("office", resourceCulture);
+                return ((byte[])(obj));
             }
         }
         

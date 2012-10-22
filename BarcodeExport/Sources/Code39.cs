@@ -162,6 +162,7 @@ namespace BarcodeExport.Sources
 			_barCodeSize=objGraphics.MeasureString(barCode,Code39Font);								
 			bcodeWidth=Max(bcodeWidth,(int)_barCodeSize.Width);
 			bcodeHeight+=(int)_barCodeSize.Height;
+            bcodeHeight -= 7;
 			
 			if (_showCodeString)
 			{

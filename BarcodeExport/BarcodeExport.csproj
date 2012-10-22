@@ -37,8 +37,8 @@
     <ApplicationIcon>Resources\Xerox Icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="CSharpJExcel">
-      <HintPath>.\CSharpJExcel.dll</HintPath>
+    <Reference Include="Microsoft.Office.Interop.Excel, Version=14.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -90,13 +90,11 @@
     <None Include="Resources\CODE3OF9.TTF" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="CSharpJExcel.dll" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\LogoMed_Alpha.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Xerox Icon.ico" />
+    <Content Include="Resources\LogoMed_Alpha.png" />
+    <None Include="Resources\Microsoft.Vbe.Interop.dll" />
+    <None Include="Resources\office.dll" />
+    <None Include="Resources\Microsoft.Office.Interop.Excel.dll" />
+    <Content Include="Resources\Xerox Icon.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
