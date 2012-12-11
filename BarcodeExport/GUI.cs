@@ -73,7 +73,7 @@ namespace BarcodeExport
                 //Valida que sean todos digitos
                 foreach (char digit in this.textBox_capture.Text)
                 {
-                    if (!Char.IsLetterOrDigit(digit) && digit != '*')
+                    if (!Char.IsLetterOrDigit(digit) && digit != '*' && digit != '-')
                     {
                         MessageBox.Show("La serie de caracteres no es válida!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return;
