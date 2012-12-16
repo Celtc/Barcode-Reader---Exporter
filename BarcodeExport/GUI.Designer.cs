@@ -38,6 +38,8 @@
             this.button_export = new System.Windows.Forms.Button();
             this.button_eraseReads = new System.Windows.Forms.Button();
             this.checkBox_asterisk = new System.Windows.Forms.CheckBox();
+            this.textBox_fontSize = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // textBox_capture
@@ -121,7 +123,7 @@
             // checkBox_asterisk
             // 
             this.checkBox_asterisk.AutoSize = true;
-            this.checkBox_asterisk.Location = new System.Drawing.Point(256, 18);
+            this.checkBox_asterisk.Location = new System.Drawing.Point(452, 15);
             this.checkBox_asterisk.Name = "checkBox_asterisk";
             this.checkBox_asterisk.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.checkBox_asterisk.Size = new System.Drawing.Size(173, 17);
@@ -129,11 +131,30 @@
             this.checkBox_asterisk.Text = "Agregar asteriscos al inicio y fin";
             this.checkBox_asterisk.UseVisualStyleBackColor = true;
             // 
+            // textBox_fontSize
+            // 
+            this.textBox_fontSize.Location = new System.Drawing.Point(306, 16);
+            this.textBox_fontSize.Name = "textBox_fontSize";
+            this.textBox_fontSize.Size = new System.Drawing.Size(100, 20);
+            this.textBox_fontSize.TabIndex = 13;
+            this.textBox_fontSize.Leave += new System.EventHandler(this.textBox_fontSize_Leave);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(252, 19);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(46, 13);
+            this.label2.TabIndex = 14;
+            this.label2.Text = "Tamaño";
+            // 
             // GUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(647, 187);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.textBox_fontSize);
             this.Controls.Add(this.checkBox_asterisk);
             this.Controls.Add(this.button_eraseReads);
             this.Controls.Add(this.button_export);
@@ -162,6 +183,8 @@
         private System.Windows.Forms.Button button_export;
         private System.Windows.Forms.Button button_eraseReads;
         private System.Windows.Forms.CheckBox checkBox_asterisk;
+        private System.Windows.Forms.TextBox textBox_fontSize;
+        private System.Windows.Forms.Label label2;
     }
 }
 

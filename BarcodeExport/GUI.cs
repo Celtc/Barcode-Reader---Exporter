@@ -27,6 +27,7 @@ namespace BarcodeExport
             this._fontSize = 48;
             this._codesReaded = 0;
             this.label_qty.Text = this._codesReaded.ToString();
+            this.textBox_fontSize.Text = this._fontSize.ToString();
 
             //Crea el font si no existe
             if (!File.Exists(_fontFilename))
@@ -170,6 +171,13 @@ namespace BarcodeExport
             this._codesReaded = 0;
             this.label_qty.Text = "0";
             this._barcodeList = new List<BarcodeStruct>();
+        }
+
+        //Tamaño de fuente
+        private void textBox_fontSize_Leave(object sender, EventArgs e)
+        {
+            TextBox caller = (TextBox) sender;
+            this._fontSize = (int) Math.Round((double) int.Parse(caller.Text), 0);
         }
     }
 }
