@@ -119,12 +119,39 @@ namespace BarcodeExport.Sources
             return true;
         }
 
-        public void adjuntColumnsWidth(int[] columns)
+        public void autoAjustColumnsWidth(int[] columns)
         {
             foreach (int col in columns)
             {
                 Excel.Range range = (Excel.Range)worksheet.Columns[col];
                 range.AutoFit();
+            }
+        }
+
+        public void autoAjustRowsHeight(int[] rows)
+        {
+            foreach (int row in rows)
+            {
+                Excel.Range range = (Excel.Range)worksheet.Rows[row];
+                range.AutoFit();
+            }
+        }
+
+        public void autoAjustRowsHeight(int from, int to)
+        {
+            for (int i = from; i <= to; i++)
+            {
+                Excel.Range range = (Excel.Range)worksheet.Rows[i];
+                range.AutoFit();
+            }
+        }
+
+        public void ajustRowsHeight(int from, int to, int height)
+        {
+            for (int i = from; i <= to; i++)
+            {
+                Excel.Range range = (Excel.Range)worksheet.Rows[i];
+                range.RowHeight = height;
             }
         }
 

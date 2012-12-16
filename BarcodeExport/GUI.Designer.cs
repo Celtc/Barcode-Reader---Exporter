@@ -166,6 +166,7 @@
             this.Controls.Add(this.textBox_capture);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "GUI";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Generador de código de Barras";
             this.ResumeLayout(false);
             this.PerformLayout();

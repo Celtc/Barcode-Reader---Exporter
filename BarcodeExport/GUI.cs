@@ -17,9 +17,9 @@ namespace BarcodeExport
         {
             //Inicializa
             InitializeComponent();
-            this._barcodeList = new List<BarcodeStruct>();
 
             //Valores por defecto
+            this._barcodeList = new List<string>();
             this.checkBox_asterisk.Checked = true;
             this.comboBox1.SelectedIndex = 0;
             this._fontFilename = "fontdata.dll";
@@ -46,7 +46,7 @@ namespace BarcodeExport
         private float _fontSize;
         private string _fontFilename;
         private string _fontFamilyname;
-        private List<BarcodeStruct> _barcodeList;
+        private List<string> _barcodeList;
 
         //Estructura de codigo
         public struct BarcodeStruct
@@ -87,17 +87,8 @@ namespace BarcodeExport
 
                 try
                 {
-                    //Instancia un generador de barcode
-                    var code39mgr = new BarcodeExport.Sources.Code39();
-                    code39mgr.FontFileName = this._fontFilename;
-                    code39mgr.FontFamilyName = this._fontFamilyname;
-                    code39mgr.FontSize = this._fontSize;
-
-                    //Crea la imagen
-                    var image = code39mgr.GenerateBarcode(this.textBox_capture.Text);
-
                     //Agrega a la lista
-                    this._barcodeList.Add(new BarcodeStruct(this.textBox_capture.Text, image));
+                    this._barcodeList.Add(this.textBox_capture.Text);
                 }
                 catch
                 {
@@ -125,7 +116,7 @@ namespace BarcodeExport
                 return;
             }
 
-            //Generacion del documento
+            //Instanciacion de un proceso Excel
             Sources.ExportExcelDoc excelExporter = new Sources.ExportExcelDoc();
             if(!excelExporter.initialize())
             {
@@ -139,17 +130,28 @@ namespace BarcodeExport
                 excelExporter.createHeaders(1, 1, "Código", Color.LightBlue, Color.Black, 16, true, true, false, false, 12, 30);
                 excelExporter.createHeaders(1, 2, "Imagen", Color.LightBlue, Color.Black, 16, true, true, false, false, 12, 30);
 
-                //Codigos
+                //Instancia un generador de barcode
+                var code39mgr = new BarcodeExport.Sources.Code39();
+                code39mgr.FontFileName = this._fontFilename;
+                code39mgr.FontFamilyName = this._fontFamilyname;
+                code39mgr.FontSize = this._fontSize;
+
+                //Escribe los codigos
                 int actualRow = 2;
-                foreach (BarcodeStruct barcode in this._barcodeList)
+                foreach (string barcode in this._barcodeList)
                 {
-                    excelExporter.addData(actualRow, 1, barcode.barcode, false, false, false);
-                    excelExporter.addImage(actualRow, 2, barcode.barcodeImage);
+                    //Crea la imagen
+                    var image = code39mgr.GenerateBarcode(barcode);
+
+                    excelExporter.addData(actualRow, 1, barcode, false, false, false);
+                    excelExporter.addImage(actualRow, 2, image);
                     actualRow++;
                 }
 
-                //Ajusta los anchos
-                excelExporter.adjuntColumnsWidth(new int[] { 1 });
+                //Ajusta los anchos y altos
+                int height = (int)(this._fontSize * 82 / 100);
+                excelExporter.autoAjustColumnsWidth(new int[] { 1 });
+                excelExporter.ajustRowsHeight(2, _barcodeList.Count + 1, height < 18? 18 : height);
             }
             catch
             {
@@ -170,14 +172,22 @@ namespace BarcodeExport
         {
             this._codesReaded = 0;
             this.label_qty.Text = "0";
-            this._barcodeList = new List<BarcodeStruct>();
+            this._barcodeList = new List<string>();
         }
 
         //Tamaño de fuente
         private void textBox_fontSize_Leave(object sender, EventArgs e)
         {
             TextBox caller = (TextBox) sender;
-            this._fontSize = (int) Math.Round((double) int.Parse(caller.Text), 0);
+            int newSize = (int) Math.Round((double) int.Parse(caller.Text), 0);
+            if (newSize < 8)
+            {
+                this._fontSize = 8;
+                caller.Text = "8";
+            }
+            else
+                this._fontSize = newSize;
         }
     }
 }
+
