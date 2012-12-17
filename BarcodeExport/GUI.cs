@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.IO;
+using System.Runtime.InteropServices;
+using System.Drawing.Text;
 
 namespace BarcodeExport
 {
@@ -23,7 +25,7 @@ namespace BarcodeExport
             this.checkBox_asterisk.Checked = true;
             this.comboBox1.SelectedIndex = 0;
             this._fontFilename = "fontdata.dll";
-            this._fontFamilyname = "Free 3 of 9";
+            this._fontFamilyname = "Code 3 of 9";
             this._fontSize = 48;
             this._codesReaded = 0;
             this.label_qty.Text = this._codesReaded.ToString();
@@ -33,7 +35,7 @@ namespace BarcodeExport
             if (!File.Exists(_fontFilename))
             {
                 Stream newFont = File.Create(_fontFilename);
-                byte[] memFont = global::BarcodeExport.Properties.Resources.CODE3OF9;
+                byte[] memFont = global::BarcodeExport.Properties.Resources.Code3of9Regular;
                 newFont.Write(memFont, 0, memFont.Length);
 
                 newFont.Flush();
@@ -130,27 +132,39 @@ namespace BarcodeExport
                 excelExporter.createHeaders(1, 1, "Código", Color.LightBlue, Color.Black, 16, true, true, false, false, 12, 30);
                 excelExporter.createHeaders(1, 2, "Imagen", Color.LightBlue, Color.Black, 16, true, true, false, false, 12, 30);
 
-                //Instancia un generador de barcode
-                var code39mgr = new BarcodeExport.Sources.Code39();
-                code39mgr.FontFileName = this._fontFilename;
-                code39mgr.FontFamilyName = this._fontFamilyname;
-                code39mgr.FontSize = this._fontSize;
+
+                //Si hay que exportar como imagen
+                BarcodeExport.Sources.Code39 code39mgr = null;
+                if(!this.checkBox_exportText.Checked)
+                {
+                    //Instancia un generador de barcode
+                    code39mgr = new BarcodeExport.Sources.Code39();
+                    code39mgr.FontFileName = this._fontFilename;
+                    code39mgr.FontFamilyName = this._fontFamilyname;
+                    code39mgr.FontSize = this._fontSize;
+                }
 
                 //Escribe los codigos
                 int actualRow = 2;
                 foreach (string barcode in this._barcodeList)
                 {
-                    //Crea la imagen
-                    var image = code39mgr.GenerateBarcode(barcode);
+                    excelExporter.addData(actualRow, 1, barcode, false, false, false, null, null);
 
-                    excelExporter.addData(actualRow, 1, barcode, false, false, false);
-                    excelExporter.addImage(actualRow, 2, image);
+                    if(!this.checkBox_exportText.Checked)
+                    {
+                        var image = code39mgr.GenerateBarcode(barcode);
+                        excelExporter.addImage(actualRow, 2, image);
+                    }
+                    else
+                        excelExporter.addData(actualRow, 2, barcode, false, false, false, (int)this._fontSize, "Code 3 of 9");
+
                     actualRow++;
                 }
 
                 //Ajusta los anchos y altos
                 int height = (int)(this._fontSize * 82 / 100);
-                excelExporter.autoAjustColumnsWidth(new int[] { 1 });
+                int[] columns = checkBox_exportText.Checked ? (new int[] { 1, 2 }) : (new int[] { 1 });
+                excelExporter.autoAjustColumnsWidth(columns);
                 excelExporter.ajustRowsHeight(2, _barcodeList.Count + 1, height < 18? 18 : height);
             }
             catch
@@ -187,6 +201,61 @@ namespace BarcodeExport
             }
             else
                 this._fontSize = newSize;
+        }
+
+        //Tilda la opción de exportar como text
+        [DllImport("kernel32.dll", SetLastError = true)]
+        static extern int WriteProfileString(string lpszSection, string lpszKeyName, string lpszString);
+        [DllImport("user32.dll")]
+        public static extern int SendMessage(int hWnd, uint Msg, int wParam, int lParam);
+        [DllImport("gdi32")]
+        public static extern int AddFontResource(string lpFileName); 
+        private void checkBox_exportText_CheckedChanged(object sender, EventArgs e)
+        {
+            //Si se activo
+            if (!((CheckBox)sender).Checked)
+                return;
+
+            //Verifica que el font este instalado
+            string filepathDST = Environment.ExpandEnvironmentVariables("%windir%") + @"\fonts\Code3of9Regular.ttf"; string filepathSRC = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase).Substring(6) + @"\Code3of9Regular.ttf";
+            if (!File.Exists(filepathDST))
+            {
+                var ans = MessageBox.Show("En necesario instalar el font. ¿Desea continuar?", "Importante", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+                if (ans == System.Windows.Forms.DialogResult.Cancel)
+                    return;
+
+                //Font
+                try
+                {                    
+                    //Lo crea
+                    Stream newFont = File.Create(filepathDST);
+                    byte[] memFont = global::BarcodeExport.Properties.Resources.Code3of9Regular;
+                    newFont.Write(memFont, 0, memFont.Length);
+
+                    newFont.Flush();
+                    newFont.Close();
+
+                    //Lo instala
+                    int Ret = 0;
+                    const int WM_FONTCHANGE = 0x001D; 
+                    const int HWND_BROADCAST = 0xffff;
+                    Ret += AddFontResource(filepathDST); 
+                    Ret += SendMessage(HWND_BROADCAST, WM_FONTCHANGE, 0, 0); 
+                    Ret += WriteProfileString("fonts", "Code 3 of 9" + " (TrueType)", Path.GetFileName(filepathDST));
+                    if (Ret != 3)
+                    {
+                        File.Delete(filepathDST);
+                        throw new Exception();
+                    }
+                }
+                catch
+                {
+                    MessageBox.Show("No se pudo instalar el font. Verifique que tenga los permisos necesarios.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                MessageBox.Show("Se ha instalado el recurso con éxito.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }            
         }
     }
 }

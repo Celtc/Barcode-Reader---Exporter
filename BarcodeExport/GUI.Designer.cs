@@ -40,6 +40,7 @@
             this.checkBox_asterisk = new System.Windows.Forms.CheckBox();
             this.textBox_fontSize = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
+            this.checkBox_exportText = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // textBox_capture
@@ -133,7 +134,7 @@
             // 
             // textBox_fontSize
             // 
-            this.textBox_fontSize.Location = new System.Drawing.Point(306, 16);
+            this.textBox_fontSize.Location = new System.Drawing.Point(290, 16);
             this.textBox_fontSize.Name = "textBox_fontSize";
             this.textBox_fontSize.Size = new System.Drawing.Size(100, 20);
             this.textBox_fontSize.TabIndex = 13;
@@ -142,17 +143,30 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(252, 19);
+            this.label2.Location = new System.Drawing.Point(236, 19);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(46, 13);
             this.label2.TabIndex = 14;
             this.label2.Text = "Tamaño";
+            // 
+            // checkBox_exportText
+            // 
+            this.checkBox_exportText.AutoSize = true;
+            this.checkBox_exportText.Location = new System.Drawing.Point(505, 38);
+            this.checkBox_exportText.Name = "checkBox_exportText";
+            this.checkBox_exportText.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.checkBox_exportText.Size = new System.Drawing.Size(120, 17);
+            this.checkBox_exportText.TabIndex = 15;
+            this.checkBox_exportText.Text = "Exportar como texto";
+            this.checkBox_exportText.UseVisualStyleBackColor = true;
+            this.checkBox_exportText.CheckedChanged += new System.EventHandler(this.checkBox_exportText_CheckedChanged);
             // 
             // GUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(647, 187);
+            this.Controls.Add(this.checkBox_exportText);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.textBox_fontSize);
             this.Controls.Add(this.checkBox_asterisk);
@@ -186,6 +200,7 @@
         private System.Windows.Forms.CheckBox checkBox_asterisk;
         private System.Windows.Forms.TextBox textBox_fontSize;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.CheckBox checkBox_exportText;
     }
 }
 

@@ -87,10 +87,10 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <None Include="Resources\CODE3OF9.TTF" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\LogoMed_Alpha.png" />
+    <None Include="Resources\Code3of9Regular.ttf" />
     <None Include="Resources\Microsoft.Vbe.Interop.dll" />
     <None Include="Resources\office.dll" />
     <None Include="Resources\Microsoft.Office.Interop.Excel.dll" />

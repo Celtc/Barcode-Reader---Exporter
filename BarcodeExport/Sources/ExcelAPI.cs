@@ -62,7 +62,7 @@ namespace BarcodeExport.Sources
             }
         }
 
-        public void addData(int row, int col, string content, bool bold, bool italic, bool underline)
+        public void addData(int row, int col, string content, bool bold, bool italic, bool underline, int? size, string fontName)
         {
             //Data
             worksheet.Cells[row, col] = content;
@@ -73,6 +73,10 @@ namespace BarcodeExport.Sources
             workSheet_range.Font.Bold = bold;
             workSheet_range.Font.Italic = italic;
             workSheet_range.Font.Underline = underline;
+            if (size != null)
+                workSheet_range.Font.Size = size;
+            if(fontName != null)
+                workSheet_range.Font.Name = fontName;
         }
 
         public void addImage(int row, int col, Bitmap image)
